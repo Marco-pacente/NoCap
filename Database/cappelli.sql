@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 09, 2023 alle 09:28
+-- Creato il: Mar 14, 2023 alle 13:47
 -- Versione del server: 10.4.21-MariaDB
 -- Versione PHP: 8.0.12
 
@@ -88,6 +88,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dump dei dati per la tabella `users`
+--
+
+INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `birthdate`) VALUES
+(3, 'admin', 'password', 'admin@nocap.com', '0000-00-00');
+
+--
 -- Indici per le tabelle scaricate
 --
 
@@ -132,7 +139,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Limiti per le tabelle scaricate
