@@ -32,7 +32,7 @@ a:link, a:visited {
   a:hover, a:active {
     background-color: grey;
   }
-label{
+body{
     font-family: Arial, Helvetica, sans-serif;
 }
 .submit{

@@ -11,6 +11,7 @@
             <a href="index.php"><div>home</div></a>
             <a href=""><div>carrello</div></a>
             <a href="login.php"><div>login</div></a>
+            <a href="account.php">account</a>
         </div>
     </body>
 </html>
