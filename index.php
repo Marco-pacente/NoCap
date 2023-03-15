@@ -13,5 +13,13 @@
             <a href="login.php"><div>login</div></a>
             <a href="account.php">account</a>
         </div>
+
+        <h1>Categorie</h1>
+
+        <span>
+            <?php
+                $mysqli = new mysqli("localhost", "root", "", "cappelli");
+            ?>
+        </span>
     </body>
 </html>

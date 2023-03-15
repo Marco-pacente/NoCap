@@ -14,19 +14,28 @@
             <a href="account.php">account</a>
         </div>
         <?php
-            if(session_id() == ""){
+            session_start();
+            if(!isset($_SESSION["username"])){
                 echo '<p>Non hai effettuato il login? <a href="login.php">Accedi</a></p>';
+                exit();
             }else{
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
                 $username = $_SESSION["username"];
                 $account_select = $mysqli -> prepare("SELECT username, email, birthdate FROM users WHERE username = (?)");
-                $account_select -> bind("s", $username);
-                $account = $account_select -> execute();
-                echo "<p>" . $account["username"] . "</p>";
+                $account_select -> bind_param("s", $username);
+                $account_select -> execute();
+                $account = $account_select -> get_result();
+                $account = mysqli_fetch_array($account);
+                $mysqli -> close(); 
+                echo "<p>" . $username . "</p>";
                 echo "<p>" . $account["email"] . "</p>";
                 echo "<p>" . $account["birthdate"] . "</p>";
-                $mysqli -> close(); 
             }
         ?>
+        <a href="shoppingcart.php">Carrello</a>
+        
+        <form action="exit.php" method="get">
+                <input class="button" type="submit" value="Esci">
+        </form>
     </body>
 </html>
