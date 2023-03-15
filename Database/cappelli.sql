@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 14, 2023 alle 13:47
--- Versione del server: 10.4.21-MariaDB
--- Versione PHP: 8.0.12
+-- Creato il: Mar 15, 2023 alle 19:30
+-- Versione del server: 10.4.27-MariaDB
+-- Versione PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,12 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cappelli` (
   `id_cap` int(11) NOT NULL,
-  `nome` varchar(15) NOT NULL,
-  `descrizione` varchar(50) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `descrizione` varchar(140) NOT NULL,
   `tipo` varchar(15) NOT NULL,
   `materiale` varchar(15) NOT NULL,
+  `path_img` varchar(255) NOT NULL,
   `id_fornitore` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `cappelli`
+--
+
+INSERT INTO `cappelli` (`id_cap`, `nome`, `descrizione`, `tipo`, `materiale`, `path_img`, `id_fornitore`) VALUES
+(2, 'Gualtiero Bianchi', 'Ottimo per trasferirsi ad Albuquerque', 'Fedora', 'Pelle umana', './images/WalterWhite.png', 1),
+(3, 'Bello', 'È molto sano da indossare', 'Berretto', 'Amianto', './images/cappelloimg.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -45,7 +54,7 @@ CREATE TABLE `cappelli` (
 CREATE TABLE `carrello` (
   `id_user` int(11) NOT NULL,
   `id_storage` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -56,7 +65,15 @@ CREATE TABLE `carrello` (
 CREATE TABLE `fornitore` (
   `id_fornitore` int(11) NOT NULL,
   `nome` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `fornitore`
+--
+
+INSERT INTO `fornitore` (`id_fornitore`, `nome`) VALUES
+(1, 'Jesse'),
+(2, 'Gus');
 
 -- --------------------------------------------------------
 
@@ -71,7 +88,7 @@ CREATE TABLE `storage` (
   `colore` varchar(15) NOT NULL,
   `quantità` int(11) NOT NULL,
   `prezzo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -82,17 +99,17 @@ CREATE TABLE `storage` (
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(30) NOT NULL,
   `birthdate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `users`
 --
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `birthdate`) VALUES
-(3, 'admin', 'password', 'admin@nocap.com', '0000-00-00');
+(17, 'amogus', '$2y$10$tJKmFjYXNRM6w65.rmUoHuzhHehrVdteP6IPnrDVoR3nvgF.ZtVNS', 'test@mail.com', '1970-01-01');
 
 --
 -- Indici per le tabelle scaricate
@@ -136,10 +153,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT per la tabella `cappelli`
+--
+ALTER TABLE `cappelli`
+  MODIFY `id_cap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT per la tabella `fornitore`
+--
+ALTER TABLE `fornitore`
+  MODIFY `id_fornitore` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT per la tabella `storage`
+--
+ALTER TABLE `storage`
+  MODIFY `id_storage` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Limiti per le tabelle scaricate

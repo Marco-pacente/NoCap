@@ -18,20 +18,19 @@
     border-radius: 1px;
 }
 
-a:link, a:visited, .button {
+a:link , a:visited, .button {
     font-family:Arial, Helvetica, sans-serif;
     border-radius: 5px;
-    background-color: black;
     color: white;
     padding: 14px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-  }
-  
-  a:hover, a:active {
+}
+
+a:hover, a:active {
     background-color: grey;
-  }
+ }
 body{
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -46,6 +45,8 @@ body{
 }
 input[type=text], input[type=password], input[type=date] {
     width: 20%;
+    color: white;
+    background-color: black;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -55,4 +56,33 @@ input[type=text], input[type=password], input[type=date] {
 #error{
     font-family: Arial, Helvetica, sans-serif;
     color: red;
+}
+img{
+    width: 300px;
+}
+.container{
+    border: solid black 1px;
+    width: 30%;
+    height: 500px;
+    background-color: antiquewhite;
+}
+h2{
+    text-align: center;
+}
+.vetrina{
+    font-family:Arial, Helvetica, sans-serif;
+    border-radius: 0;
+    background-color: antiquewhite;
+    color: black;
+    padding: 5%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+span{
+    vertical-align: top;
+    display: inline-block;
+}
+h2{
+    color: black;
 }

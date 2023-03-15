@@ -18,13 +18,10 @@
 
         <span>
             <?php
+                $tipo = $_GET["type"];
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
-                $query = "SELECT distinct tipo, path_img FROM cappelli";
-                $result = $mysqli -> query($query);
-                $mysqli -> close();
-                while($cappelli = $result -> fetch_array(MYSQLI_ASSOC)){
-                    echo "<a class = 'vetrina' href='search.php?type=". $cappelli["tipo"] ."'><div><h2>" . $cappelli["tipo"] . "</h2>" . "<img src='". $cappelli["path_img"] ."'> </div></a>";
-                }
+                $query_select = "SELECT * from cappelli, storage WHERE cappelli.id_cap = storage.id_cap AND tipo = (?)";
+                $cappelli = $mysqli -> query($query_select);
             ?>
         </span>
     </body>
