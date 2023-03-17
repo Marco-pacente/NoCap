@@ -19,6 +19,7 @@
 }
 
 a:link , a:visited, .button {
+    background-color: darkgray;
     font-family:Arial, Helvetica, sans-serif;
     border-radius: 5px;
     color: white;
@@ -44,9 +45,7 @@ body{
     display: block;
 }
 input[type=text], input[type=password], input[type=date] {
-    width: 20%;
-    color: white;
-    background-color: black;
+    width: 20%; 
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;

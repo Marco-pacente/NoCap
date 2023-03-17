@@ -40,7 +40,8 @@
                 $result_password = $mysqli -> query($password_query);
                 $password_hash = mysqli_fetch_array($result_password)["password"];
                 if($result_password -> num_rows != 0){
-                    if(password_verify($password, $password_hash)){
+                    i
+                    f(password_verify($password, $password_hash)){
                         echo "Accesso effettuato";
                         session_start();
                         $_SESSION["username"] = $username;

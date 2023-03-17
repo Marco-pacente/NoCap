@@ -19,11 +19,17 @@
         <span>
             <?php
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
-                $query = "SELECT distinct tipo, path_img FROM cappelli";
+                $query = "SELECT tipo, path_img FROM tipo";
                 $result = $mysqli -> query($query);
                 $mysqli -> close();
-                while($cappelli = $result -> fetch_array(MYSQLI_ASSOC)){
-                    echo "<a class = 'vetrina' href='search.php?type=". $cappelli["tipo"] ."'><div><h2>" . $cappelli["tipo"] . "</h2>" . "<img src='". $cappelli["path_img"] ."'> </div></a>";
+                while($tipo = $result -> fetch_array(MYSQLI_ASSOC)){
+                    echo 
+                        "<a class = 'vetrina' href='search.php?type=". $tipo["tipo"] ."'>
+                            <div>
+                                    <h2>" . $tipo["tipo"] . "</h2>"."
+                                    <img src='". $tipo["path_img"] ."'>
+                            </div>
+                        </a>";
                 }
             ?>
         </span>
