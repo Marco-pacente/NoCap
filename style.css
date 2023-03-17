@@ -19,7 +19,7 @@
 }
 
 a:link , a:visited, .button {
-    background-color: darkgray;
+    background-color: black;
     font-family:Arial, Helvetica, sans-serif;
     border-radius: 5px;
     color: white;
@@ -50,7 +50,6 @@ input[type=text], input[type=password], input[type=date] {
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    box-sizing: border-box;
 }
 #error{
     font-family: Arial, Helvetica, sans-serif;
@@ -68,15 +67,21 @@ img{
 h2{
     text-align: center;
 }
-.vetrina{
+a.vetrina:link, a.vetrina:visited{
     font-family:Arial, Helvetica, sans-serif;
     border-radius: 0;
-    background-color: antiquewhite;
+    background-color: lightcyan;
     color: black;
     padding: 5%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    border: solid black 2px;
+    border-radius: 1cm;
+    border-spacing: 10%;
+}
+a.vetrina:hover{
+    background-color: gray;
 }
 span{
     vertical-align: top;

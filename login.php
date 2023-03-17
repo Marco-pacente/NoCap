@@ -10,7 +10,7 @@
         <h1 class="title">NoCap?</h1>
         <div class="menu">
             <a href="index.php"><div>home</div></a>
-            <a href=""><div>carrello</div></a>
+            <a href="shoppingcart.php"><div>carrello</div></a>
             <a href="login.php"><div>login</div></a>
             <a href="account.php">account</a>
         </div>
@@ -35,17 +35,20 @@
                 }
                 $username = $_POST["username"];
                 $password = $_POST["password"];
+                if(strlen($username) == 0 || strlen($password) == 0){
+                    echo "Tutti i campi sono obbligatori";
+                    exit();
+                }
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
                 $password_query = "SELECT password FROM users WHERE username = '".$username."'";
                 $result_password = $mysqli -> query($password_query);
                 $password_hash = mysqli_fetch_array($result_password)["password"];
                 if($result_password -> num_rows != 0){
-                    i
-                    f(password_verify($password, $password_hash)){
+                    if(password_verify($password, $password_hash)){
                         echo "Accesso effettuato";
                         session_start();
                         $_SESSION["username"] = $username;
-                        header("account.php");
+                        echo "<script>window.location.href = 'account.php';</script>";
                     }else{
                         echo "Password errata";
                     }

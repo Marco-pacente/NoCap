@@ -9,12 +9,12 @@
         <h1 class="title">NoCap?</h1>
         <div class="menu">
             <a href="index.php"><div>home</div></a>
-            <a href=""><div>carrello</div></a>
+            <a href="shoppingcart.php"><div>carrello</div></a>
             <a href="login.php"><div>login</div></a>
             <a href="account.php">account</a>
         </div>
 
-        <h1>Categorie</h1>
+        <h1>Cappelli sotto la categoria <?php echo $_GET["type"] ?></h1>
 
         <span>
             <?php
@@ -25,7 +25,7 @@
                 $mysqli -> close();
                 while($cappelli = $result -> fetch_array(MYSQLI_ASSOC)){
                     echo 
-                        "<a class = 'vetrina' href='product.php?product=". $cappelli["nome"] ."'>
+                        "<a class = 'vetrina' href='product.php?id_cap=". $cappelli["id_cap"] ."'>
                             <div>
                                     <h2>" . $cappelli["nome"] . "</h2>"."
                                     <img src='". $cappelli["path_img"] ."'>

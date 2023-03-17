@@ -26,12 +26,16 @@
             echo $mysqli -> connect_error;
             exit();
         }else{
-            $username_query = "SELECT username from users where username = '" . $username . "';";
-            $usn_rows = $mysqli -> query($username_query);
-            $email_query = "SELECT username from users where email = '" . $email . "';";
-            $psw_rows = $mysqli -> query($email_query);
-            if($usn_rows -> num_rows != 0 || $psw_rows -> num_rows != 0){
-                echo "Un account con questa email o password esiste già<br>";
+            $username_query = $mysqli -> prepare("SELECT * from users where username = (?)");
+            $username_query -> bind_param("s", $username);
+            $username_query -> execute(); 
+            $usn_rows = $username_query -> get_result();
+            $email_query = $mysqli -> prepare("SELECT * from users where email = (?)");
+            $email_query -> bind_param("s", $email);
+            $email_query -> execute();
+            $email_rows = $email_query -> get_result();
+            if($usn_rows -> num_rows != 0 || $email -> num_rows != 0){
+                echo "Un account con questo username o email esiste già<br>";
             }else{
                 $inserimento = $mysqli->prepare("INSERT INTO users(username, password, email, birthdate) VALUES (?, ?, ?, ?)");
                 $inserimento -> bind_param("ssss", $username, $password, $email, $bday);
@@ -40,11 +44,13 @@
                     echo "<h1>Registrazione effettuata con successo!</h1>";
                     session_start();
                     $_SESSION["Account"] = $username;
+                    echo "<script>seTimeOut(loadAccount, 2000)</script>";
                 }else{
                     echo "errore " . $mysqli -> error   ;
                 }
             }
         }
+        echo "<div>Se non vieni reindirizzato automaticamente, premi <a href='account.php'>qui</a> </div>";
         $mysqli -> close();
     }
 ?>

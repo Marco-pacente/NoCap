@@ -29,3 +29,7 @@ function signupSubmit(){
     }
     return isValid;
 }
+
+function loadAccount(){
+    window.location.href = "account.php";
+}
