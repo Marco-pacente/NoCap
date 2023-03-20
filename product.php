@@ -17,7 +17,7 @@
             <?php
                 $id_cap = $_GET["id_cap"];
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
-                $prodotto_query = $mysqli -> prepare("SELECT * FROM cappelli WHERE cappelli.id_cap = (?)");
+                $prodotto_query = $mysqli -> prepare("SELECT nome, path_img, descrizione FROM cappelli WHERE id_cap = (?)");
                 $prodotto_query -> bind_param("i", $id_cap);
                 $prodotto_query -> execute();
                 $result = $prodotto_query -> get_result();
@@ -34,13 +34,14 @@
                 $storage_query -> execute();
                 $result = $storage_query -> get_result();
                 $mysqli -> close();
-                echo "<table> <th>Taglia</th> <th>Colore</th>";
+                echo "<table> <th>Taglia</th> <th>Colore</th> <th>Prezzo</th>";
                 while($storage = $result -> fetch_array(MYSQLI_ASSOC)){
                     echo 
                         "<tr>".
                             "<td>". $storage["taglia"] . "</td>".
                             "<td>". $storage["colore"] . "</td>";
-                    if($storage["quantità"]>0){
+                            "<td>". $storage["prezzo"] . "€" . "</td>";
+                            if($storage["quantità"]>0){
                         echo "<a href='addToCart.php?id=". $storage["id_storage"] ."'>Aggiungi al carrello</a>";
                     } 
                     echo "<tr>";

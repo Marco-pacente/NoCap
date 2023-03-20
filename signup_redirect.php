@@ -12,8 +12,8 @@
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo("Email non valida<br>");
-    $isValid = false;
+        echo("Email non valida<br>");
+        $isValid = false;
     }
     if(strlen($password)<8){
         echo("La password deve essere di almeno 8 caratteri<br>");
@@ -26,15 +26,11 @@
             echo $mysqli -> connect_error;
             exit();
         }else{
-            $username_query = $mysqli -> prepare("SELECT * from users where username = (?)");
-            $username_query -> bind_param("s", $username);
-            $username_query -> execute(); 
-            $usn_rows = $username_query -> get_result();
-            $email_query = $mysqli -> prepare("SELECT * from users where email = (?)");
-            $email_query -> bind_param("s", $email);
-            $email_query -> execute();
-            $email_rows = $email_query -> get_result();
-            if($usn_rows -> num_rows != 0 || $email -> num_rows != 0){
+            $query = $mysqli -> prepare("SELECT * from users where email = (?) OR username = (?)");
+            $query -> bind_param("ss", $email, $username);
+            $query -> execute();
+            $result_rows = $query -> get_result();
+            if($result_rows -> num_rows != 0){
                 echo "Un account con questo username o email esiste già<br>";
             }else{
                 $inserimento = $mysqli->prepare("INSERT INTO users(username, password, email, birthdate) VALUES (?, ?, ?, ?)");
@@ -44,13 +40,16 @@
                     echo "<h1>Registrazione effettuata con successo!</h1>";
                     session_start();
                     $_SESSION["Account"] = $username;
-                    echo "<script>seTimeOut(loadAccount, 2000)</script>";
+                    echo "<script>setTimeOut(loadAccount, 2000)</script>";
+                    echo "<div>Se non vieni reindirizzato automaticamente, premi <a href='account.php'>qui</a> </div>";
+                    $mysqli -> close();
+                    exit();
                 }else{
                     echo "errore " . $mysqli -> error   ;
                 }
             }
         }
-        echo "<div>Se non vieni reindirizzato automaticamente, premi <a href='account.php'>qui</a> </div>";
+        echo "<div>Se non vieni reindirizzato automaticamente, premi <a href='signup.php'>qui</a> </div>";
         $mysqli -> close();
     }
 ?>

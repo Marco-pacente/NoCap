@@ -18,18 +18,27 @@
 
         <span>
             <?php
+                session_start();
                 $username = $_SESSION["username"];
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
                 $query = "SELECT id_user FROM users WHERE username = '" . $username . "'";
                 $user_id = $mysqli -> query($query);
                 $user_id = $user_id -> fetch_array()["id_user"];
-                $query = "SELECT cappelli.nome, storage.taglia, storage.colore FROM users, cappelli, storage, carrello WHERE users.id_user = carrello.id_user AND carrello.id_storage = storage.id_storage AND storage.id_cap = cappelli.id_cap AND users.id_user= '" . $user_id . "'";
+                $query = "SELECT cappelli.nome, storage.taglia, storage.colore, prezzo   FROM users, cappelli, storage, carrello WHERE users.id_user = carrello.id_user AND carrello.id_storage = storage.id_storage AND storage.id_cap = cappelli.id_cap AND users.id_user= '" . $user_id . "'";
                 $result = $mysqli -> query($query);
-                while($carrello = $result -> fetch_array(ARRAY_ASSOC)){
-                    echo $carrello["nome"];
-                    echo "<br>";
-                    echo $carrello["colore"];
-                    echo $carrello["taglia"];
+                if($result -> num_rows == 0){
+                    echo "Il carrello è vuoto";
+                }
+                while($carrello = $result -> fetch_array(MYSQLI_ASSOC)){
+                    echo "<div class = 'carrello'>";
+                        echo "<h2>" . $carrello["nome"] . "</h2>";
+                        echo "<br>";
+                        echo $carrello["colore"];
+                        echo "<br>";
+                        echo $carrello["taglia"];
+                        echo "<br>";
+                        echo $carrello["prezzo"]/100 . "€";
+                    echo "</div>";
                 }
             ?>
         </span>

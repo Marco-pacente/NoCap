@@ -40,22 +40,25 @@
                     exit();
                 }
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
-                $password_query = "SELECT password FROM users WHERE username = '".$username."'";
-                $result_password = $mysqli -> query($password_query);
+                $password_query = $mysqli -> prepare("SELECT password FROM users WHERE username = (?);");
+                $password_query -> bind_param("s", $username);
+                $password_query -> execute();
+                $result_password = $password_query -> get_result();
+                $mysqli -> close();
                 $password_hash = mysqli_fetch_array($result_password)["password"];
                 if($result_password -> num_rows != 0){
                     if(password_verify($password, $password_hash)){
                         echo "Accesso effettuato";
                         session_start();
                         $_SESSION["username"] = $username;
-                        echo "<script>window.location.href = 'account.php';</script>";
+                        //echo "<script>window.location.href = 'account.php';</script>";
+                        header("account.php");
                     }else{
                         echo "Password errata";
                     }
                 }else{
                     echo "<p>Non esiste un account con questo nome</p>";
                 }
-                $mysqli -> close();
             ?>
     </body>
 </html>
