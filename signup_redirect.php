@@ -40,7 +40,7 @@
                     echo "<h1>Registrazione effettuata con successo!</h1>";
                     session_start();
                     $_SESSION["Account"] = $username;
-                    echo "<script>setTimeOut(loadAccount, 2000)</script>";
+                    header("Location: account.php");
                     echo "<div>Se non vieni reindirizzato automaticamente, premi <a href='account.php'>qui</a> </div>";
                     $mysqli -> close();
                     exit();
