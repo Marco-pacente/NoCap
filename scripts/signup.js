@@ -30,6 +30,7 @@ function signupSubmit(){
     return isValid;
 }
 
+//non utilizzata
 function loadAccount(){
     window.location.href = "account.php";
 }
