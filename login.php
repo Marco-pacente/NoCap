@@ -52,7 +52,7 @@
                         session_start();
                         $_SESSION["username"] = $username;
                         //echo "<script>window.location.href = 'account.php';</script>";
-                        header("account.php");
+                        header("Location: account.php");
                     }else{
                         echo "Password errata";
                     }
