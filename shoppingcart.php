@@ -24,7 +24,7 @@
                 $query = "SELECT id_user FROM users WHERE username = '" . $username . "'";
                 $user_id = $mysqli -> query($query);
                 $user_id = $user_id -> fetch_array()["id_user"];
-                $query = "SELECT cappelli.nome, storage.taglia, storage.colore, prezzo   FROM users, cappelli, storage, carrello WHERE users.id_user = carrello.id_user AND carrello.id_storage = storage.id_storage AND storage.id_cap = cappelli.id_cap AND users.id_user= '" . $user_id . "'";
+                $query = "SELECT cappelli.nome, storage.taglia, storage.colore, prezzo FROM users, cappelli, storage, carrello WHERE users.id_user = carrello.id_user AND carrello.id_storage = storage.id_storage AND storage.id_cap = cappelli.id_cap AND users.id_user= '" . $user_id . "'";
                 $result = $mysqli -> query($query);
                 if($result -> num_rows == 0){
                     echo "Il carrello è vuoto";

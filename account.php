@@ -32,10 +32,7 @@
                 echo "<p>" . $account["birthdate"] . "</p>";
             }
         ?>
+        <a href="exit.php">Esci</a>
         <a href="shoppingcart.php">Carrello</a>
-        
-        <form action="exit.php" method="get">
-                <input class="button" type="submit" value="Esci">
-        </form>
     </body>
 </html>

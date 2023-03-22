@@ -21,33 +21,44 @@
                 $prodotto_query -> bind_param("i", $id_cap);
                 $prodotto_query -> execute();
                 $result = $prodotto_query -> get_result();
+                if(!$result -> num_rows){
+                    ?>
+                    <h2>Errore</h2>
+                    <?php
+                    exit();
+                }
                 $prodotto = $result -> fetch_array(MYSQLI_ASSOC);
                 $result -> free_result();
-                echo 
-                    "<div>".
-                        "<h1>" . $prodotto["nome"] . "</h1>" . "<img src = '" . $prodotto["path_img"] . "'>" .
-                        "<h2>Descrizione</h2>" .
-                        "<p>" . $prodotto["descrizione"] . "</p>" . 
-                    "</div>";
-                $storage_query = $mysqli -> prepare("SELECT * FROM cappelli, storage WHERE cappelli.id_cap = storage.id_cap AND cappelli.id_cap = (?)");
-                $storage_query -> bind_param("i", $id_cap);
-                $storage_query -> execute();
-                $result = $storage_query -> get_result();
-                $mysqli -> close();
-                echo "<table> <th>Taglia</th> <th>Colore</th> <th>Prezzo</th>";
-                while($storage = $result -> fetch_array(MYSQLI_ASSOC)){
-                    echo 
-                        "<tr>".
-                            "<td>". $storage["taglia"] . "</td>".
-                            "<td>". $storage["colore"] . "</td>";
-                            "<td>". $storage["prezzo"] . "€" . "</td>";
-                            if($storage["quantità"]>0){
-                        echo "<a href='addToCart.php?id=". $storage["id_storage"] ."'>Aggiungi al carrello</a>";
-                    } 
-                    echo "<tr>";
-                        
-                }
-                echo "</table>";
+                ?>
+
+                <div>
+                    <h1> <?php echo $prodotto["nome"] ?>  </h1> <img src = ' <?php echo $prodotto["path_img"] ?>'>
+                    <h2>Descrizione</h2>
+                    <p> <?php echo $prodotto["descrizione"] ?> </p> 
+                </div>
+                <?php
+                    $storage_query = $mysqli -> prepare("SELECT * FROM cappelli, storage WHERE cappelli.id_cap = storage.id_cap AND cappelli.id_cap = (?)");
+                    $storage_query -> bind_param("i", $id_cap);
+                    $storage_query -> execute();
+                    $result = $storage_query -> get_result();
+                    $mysqli -> close();
+                ?>
+                    <table> <th>Taglia</th> <th>Colore</th> <th>Prezzo</th>
+                    <?php
+                    while($storage = $result -> fetch_array(MYSQLI_ASSOC)){
+                            ?>
+                            <tr>
+                                <td> <?php echo $storage["taglia"] ?></td>
+                                <td> <?php echo $storage["colore"] ?> </td>
+                                <td> <?php echo $storage["prezzo"]?>  €</td>
+                                <?php
+                                if($storage["quantità"]>0){
+                                    echo "<a href='addToCart.php?id=". $storage["id_storage"] ."'>Aggiungi al carrello</a>";
+                            } 
+                        echo "<tr>";
+
+                    }
+                    echo "</table>";
             ?>
         </span>
     </body>

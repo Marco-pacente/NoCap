@@ -20,17 +20,20 @@
             <?php
                 $tipo = $_GET["type"];
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
-                $query_select = "SELECT * from cappelli WHERE tipo = '". $tipo ."'";
-                $result = $mysqli -> query($query_select);
+                $query_select = $mysqli -> prepare("SELECT * from cappelli WHERE tipo = (?)");
+                $query_select -> bind_param("s", $tipo);
+                $query_select -> execute();
+                $result = $query_select -> get_result();
                 $mysqli -> close();
                 while($cappelli = $result -> fetch_array(MYSQLI_ASSOC)){
-                    echo 
-                        "<a class = 'vetrina' href='product.php?id_cap=". $cappelli["id_cap"] ."'>
+                    ?>
+                        <a class = 'vetrina' href='product.php?id_cap= <?php echo $cappelli["id_cap"] ?>'>
                             <div>
-                                    <h2>" . $cappelli["nome"] . "</h2>"."
-                                    <img src='". $cappelli["path_img"] ."'>
+                                    <h2> <?php echo $cappelli["nome"] ?> </h2>
+                                    <img src='<?php echo $cappelli["path_img"]?>'>
                             </div>
-                        </a>";
+                        </a>
+                        <?php
                 }
             ?>
         </span>

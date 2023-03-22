@@ -16,7 +16,7 @@
         </div>
 
         <div class="login-container">
-            <form action="login.php" method="POST">
+            <form onsubmit="loginSubmit" action="login.php" method="POST">
                 <div>
                     <label for="username"><b>Username</b></label> 
                     <input type="text" placeholder="Inserisci l'username" id="username" name = "username">
@@ -29,7 +29,7 @@
             </form>
         </div>
         <div>Non hai un account? <a href="signup.php">Registrati</a></div>
-            <?php 
+            <?php
                 if(!isset($_POST["username"])){
                     exit();
                 }
@@ -40,10 +40,11 @@
                     exit();
                 }
                 $mysqli = new mysqli("localhost", "root", "", "cappelli");
-                $password_query = $mysqli -> prepare("SELECT password FROM users WHERE username = (?);");
-                $password_query -> bind_param("s", $username);
+                $password_query = $mysqli -> prepare("SELECT password FROM users WHERE username = (?);"); //prepared statement
+                $password_query -> bind_param("s", $username); //associazione variabile al placeholder
                 $password_query -> execute();
                 $result_password = $password_query -> get_result();
+
                 $mysqli -> close();
                 $password_hash = mysqli_fetch_array($result_password)["password"];
                 if($result_password -> num_rows != 0){

@@ -20,6 +20,7 @@
         $isValid = false;
     }
     $password = password_hash($password, PASSWORD_DEFAULT);
+
     if($isValid){
         $mysqli = new mysqli("localhost", "root", "", "cappelli");
         if($mysqli -> connect_errno){
@@ -40,9 +41,9 @@
                     echo "<h1>Registrazione effettuata con successo!</h1>";
                     session_start();
                     $_SESSION["Account"] = $username;
+                    $mysqli -> close();
                     header("Location: account.php");
                     echo "<div>Se non vieni reindirizzato automaticamente, premi <a href='account.php'>qui</a> </div>";
-                    $mysqli -> close();
                     exit();
                 }else{
                     echo "errore " . $mysqli -> error   ;
