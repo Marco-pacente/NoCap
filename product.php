@@ -23,7 +23,7 @@
                 $result = $prodotto_query -> get_result();
                 if(!$result -> num_rows){
                     ?>
-                    <h2>Errore</h2>
+                    <h2>Stai fermo e non toccare il get. Se non l'hai toccato Ok errore mio</h2>
                     <?php
                     exit();
                 }
